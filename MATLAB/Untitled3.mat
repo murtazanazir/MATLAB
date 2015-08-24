@@ -1,0 +1,27 @@
+
+
+c = yahoo;
+ 
+ticker = {'MMM', 'AA', 'AXP', 'T', 'BAC', 'BA', 'CAT', 'CVX', 'CSCO', 'KO', 'DD' 'XOM', 'GE', 'HPQ', 'HD'};
+    %%'INTC', 'IBM', 'JPM', 'JNJ', 'KFT', 'MCD', 'MRK' ...
+    %%'MSFT', 'PFE', 'PG', 'TRV', 'UTX', 'VZ', 'WMT', 'DIS'}
+ 
+%for i = 1:30
+for i = 1 : 15
+Price.(ticker{i}) = fetch(c,ticker(i),'Adj Close','01/01/2000','12/31/2010','m');
+temp = Price.(ticker{i});
+ClosePrice(:,i) = temp(:,2);
+end
+ 
+Returns = price2ret(ClosePrice);
+ 
+plot(Returns(:,1:2));
+ylabel('Monthly Return');
+xlabel('Month');
+legend('3M', 'Alcoa');
+title('3M vs Alcoa Monthly Returns')
+ 
+p = (Portfolio('Name', 'DJIA 30'));
+p = p.setAssetList(ticker);
+disp(p);
+
